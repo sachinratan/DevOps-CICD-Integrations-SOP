@@ -1,4 +1,4 @@
-# Step-by-step guide to deploy Jenkins master on an Amazon EKS:
+Following are the step-by-step guide to deploy Jenkins master on an Amazon EKS cluster
 
 ### Step 1: Create a Namespace for Jenkins:
 ```
