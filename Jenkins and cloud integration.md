@@ -12,12 +12,16 @@ Docker plugin
 Step 2 : Configure Cloud:
 
 Go to path `Jenkins >> Manage Jenkins >> Clouds >> New cloud` and give the name to cloud
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/jnks_add_cloud.png)
 
-Go to "Manage Jenkins" → "Configure System" → "Cloud" → "Add new cloud" → "Kubernetes":
-
+Configure the cloud with following kubernetes setting:
+```
 Kubernetes settings:
 - Name: kubernetes
 - Kubernetes URL: https://kubernetes.default.svc
 - Kubernetes Namespace: jenkins
 - Jenkins URL: http://jenkins.jenkins.svc.cluster.local
+```
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/jnks_add_cloud_1.png)
 
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/jnks_add_cloud_2.png)
