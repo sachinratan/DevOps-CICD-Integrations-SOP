@@ -48,8 +48,9 @@ subjects:
   name: jenkins
   namespace: jenkins
 EOF
-
-Step 3: Create a PersistentVolumeClaim for Jenkins:
+```
+## Step 3: Create a PersistentVolumeClaim for Jenkins:
+```
 $ kubectl apply -f - <<EOF
 # jenkins-pvc.yaml
 apiVersion: v1
