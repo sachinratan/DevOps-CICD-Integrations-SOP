@@ -13,7 +13,7 @@ Step 2 : Configure Cloud:
 
 Go to path `Jenkins >> Manage Jenkins >> Clouds >> New cloud` and give the name to cloud:
 
-![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/jnks_add_cloud.png)
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks_add_cloud.png)
 
 Configure the cloud with following kubernetes setting:
 ```
@@ -25,6 +25,6 @@ Kubernetes settings:
 - Jenkins tunnel: jenkins.jenkins.svc.cluster.local:50000
 ```
 
-![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/jnks_add_cloud_1.png)
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks_add_cloud_1.png)
 
-![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/jnks_add_cloud_3.png)
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks_add_cloud_3.png)
