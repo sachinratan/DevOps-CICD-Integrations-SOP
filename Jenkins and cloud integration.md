@@ -96,21 +96,28 @@ Step 3 : Retrieve the service account secret token.
 kubectl get secret jnks-sa-token-secret -n jenkins -o jsonpath='{.data.token}' | base64 --decode
 ```
 
-Step 4: Create credential for cluster accessibility.
+Step 4: Create credential with type `secret text` for cluster accessibility.
 
-![alt text]()
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks-sa-secret-creds.png)
 
 Step 5 : Configure Cloud:
 
 Go to path `Jenkins >> Manage Jenkins >> Clouds >> New cloud` and give the name to the cloud:
 
-![alt text]()
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks_add_cloud.png)
 
 Next, configure the following details from the target k8s cluster.
 
-![alt text]()
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks-add-ext-cloud.png)
 
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks-add-ext-cloud-2.png)
 
+Test the connectivity to cloud (should see `test successful` meesage)
 
+![alt text](https://github.com/sachinratan/k8s-dkr-cicd/blob/main/miscellaneous-data/jnks-cloud-test-success.png)
 
+Step 5 : With all above configuration, you should be able to deploy to external k8s cluster environment.
 
+References:
+- https://devops.stackexchange.com/questions/9074/connect-external-jenkins-master-to-gke-with-kubernetes-plugin
+- https://devopscube.com/jenkins-build-agents-kubernetes/
