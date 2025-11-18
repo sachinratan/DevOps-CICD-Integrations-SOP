@@ -253,6 +253,6 @@ spec:
 ```
 
 ##### Note:
-- The `writeFile/writeYaml` and `readFile/readYaml` requires the Jenkins plugin pipeline utility step
-- The ` docker.withRegistry("${ECR_REGISTRY}", "ecr:${AWS_REGION}:${AWS_CREDENTIALS}") {` require the Jenkins ECR plugin
-- The `docker.build` and `docker.push` instruction required the docker pipeline Jenking plugin
+- The `writeFile/writeYaml` and `readFile/readYaml` requires the Jenkins plugin `Pipeline Utility Steps`.
+- The ` docker.withRegistry("${ECR_REGISTRY}", "ecr:${AWS_REGION}:${AWS_CREDENTIALS}") {` require the Jenkins `Amazon ECR plugin` plugin
+- The `docker.build` and `docker.push` instruction required the `Docker Pipeline` Jenking plugin
