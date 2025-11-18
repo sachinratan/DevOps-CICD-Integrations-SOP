@@ -40,7 +40,7 @@ spec:
     }
     
     environment {
-        AWS_ACCOUNT_ID = '559781698655'
+        AWS_ACCOUNT_ID = 'xxxxxxxx'
         AWS_REGION = 'eu-central-1'
         ECR_REGISTRY = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
         ECR_REPOSITORY = 'git-jenkins-pipeline-repo'
