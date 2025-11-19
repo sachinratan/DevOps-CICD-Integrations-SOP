@@ -1,3 +1,4 @@
+// This is Jenkin Pipeline script to clone github repo, build n push image to ECR, deploy to EKS cluster on AWS cloud environment.
 pipeline {
     agent {
          kubernetes {
