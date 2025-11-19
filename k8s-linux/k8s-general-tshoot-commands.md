@@ -44,3 +44,8 @@ EOF
 ```
 $ kubectl debug -it -n kube-system --image=aws_cli:latest <controller_pod_name> -n kube-system -- bash
 ```
+
+#### Uncordon the worker node instances:
+```
+$ for node in $(kubectl get nodes --no-headers | "awk '{print $1}'); do kubectl uncordon $node; done
+```
