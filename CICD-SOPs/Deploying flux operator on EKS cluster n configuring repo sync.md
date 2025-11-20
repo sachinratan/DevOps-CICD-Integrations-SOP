@@ -65,6 +65,10 @@ spec:
   interval: 5m
   url: your-helm-repo-url Note: Please be mindful when interacting with displayed links.
 ```
+- Apply the configuration:
+```
+kubectl apply -f git-repository.yaml
+```
 
 ##### Create Helm Release for Automatic Sync
 ```
@@ -86,6 +90,10 @@ spec:
   values:
     # Your custom values here
     replicaCount: 2
+```
+- Apply the configuration:
+```
+kubectl apply -f git-repository.yaml
 ```
 
 ##### Monitor Flux Synchronization
