@@ -42,8 +42,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m
-  url: github.com/<your-org>/<your-repo> Note: Please be mindful when interacting with displayed links.
-  ref:
+  url: https://github.com/sachinratan/go-app-code-repo.git
+  ref:               
     branch: main
   secretRef:
     name: flux-system
@@ -52,6 +52,7 @@ spec:
 - Apply the configuration:
 ```
 kubectl apply -f git-repository.yaml
+gitrepository.source.toolkit.fluxcd.io/flux-system created
 ```
 
 ##### Create Helm Repository Source
@@ -63,11 +64,14 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  url: your-helm-repo-url Note: Please be mindful when interacting with displayed links.
+  url: https://github.com/sachinratan/jnks-k8s-helm-int-repo.git
+EOF
 ```
 - Apply the configuration:
 ```
 kubectl apply -f git-repository.yaml
+Warning: v1beta2 HelmRepository is deprecated, upgrade to v1
+helmrepository.source.toolkit.fluxcd.io/my-helm-repo created
 ```
 
 ##### Create Helm Release for Automatic Sync
