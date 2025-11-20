@@ -43,6 +43,5 @@ $ kubectl create deployment nginx --image=nginx --replicas=2 -n custom-sg
 ```
 
 #### Once Fargate pods become healthy, with use of Fargate pod IP address you can check the Fargate pod ENI associted security groups in EC2 console.
-```
+
 - Amazon EC2 console >> Network Interfaces >> Search the Fargate Pod IP and select the network interface >> Review the details of attached Security Groups.
-```
