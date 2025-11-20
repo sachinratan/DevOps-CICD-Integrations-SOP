@@ -76,7 +76,7 @@ helmrepository.source.toolkit.fluxcd.io/my-helm-repo created
 
 ##### Create Helm Release for Automatic Sync
 ```
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2     
 kind: HelmRelease
 metadata:
   name: my-application
@@ -98,6 +98,7 @@ spec:
 - Apply the configuration:
 ```
 kubectl apply -f git-repository.yaml
+helmrelease.helm.toolkit.fluxcd.io/my-application created
 ```
 
 ##### Monitor Flux Synchronization
