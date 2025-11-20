@@ -6,8 +6,8 @@
 ssh-keygen -t ed25519 -C "sachinshinde741@gmail.com" -f jenkins-github-key
 ```
 - This creates two files:
-- jenkins-github-key (private key)
-- jenkins-github-key.pub (public key)
+  - jenkins-github-key (private key)
+  - jenkins-github-key.pub (public key)
 
 Note: If your system doesn't support ed25519, use RSA instead:
 ```
@@ -49,7 +49,6 @@ cat jenkins-github-key.pub
 #### Step 4: Configure Jenkins Pod Template
 - Ensure your Kubernetes pod template includes Git and SSH client:
 
-yaml
 ```
 apiVersion: v1
 kind: Pod
