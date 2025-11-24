@@ -120,6 +120,10 @@
     name: argocd-ingress
     namespace: argocd
     annotations:
+      alb.ingress.kubernetes.io/backend-protocol: HTTP
+      alb.ingress.kubernetes.io/healthcheck-path: /
+      alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+      alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
       kubernetes.io/ingress.class: alb
       alb.ingress.kubernetes.io/scheme: internet-facing
       alb.ingress.kubernetes.io/target-type: ip
@@ -139,7 +143,30 @@
   Warning: annotation "kubernetes.io/ingress.class" is deprecated, please use 'spec.ingressClassName' instead
   ingress.networking.k8s.io/argocd-ingress created
   ```
-    
+Note: If the ArgoCD pod targets fails the ELB health check with error `HTTP/1.1 307 Temporary Redirect` - This error occurs because the ALB is forwarding HTTP traffic to ArgoCD, but ArgoCD is trying to redirect to HTTPS, creating a redirect loop. Thus, in order to fix this when you are not using the HTTPS backend for ELB target group then you can make the ArgoCD listen on HTTP backend while adding the following configuration in argocd-server deployment
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  template:
+    spec:
+      containers:
+      - name: argocd-server
+        command:
+        - argocd-server
+        - --insecure  # Add this flag
+```
+
+#### Retrieve the ArgoCD login password for `admin` user:
+- Retrive the inital admin password
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+- Upon login in, update the admin password under ArgoCD dashboard User Info >> Update Password section >> Save New password
+
 #### ArgoCD Configuration:
 #### Important Points OR Advantages over other CI tools:
 - ArgoCD solves the security concern by running inside Kubernetes cluster and pulling the manifest out of GitHub repository.
