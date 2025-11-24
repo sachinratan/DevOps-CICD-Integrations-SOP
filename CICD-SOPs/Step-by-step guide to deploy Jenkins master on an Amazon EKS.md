@@ -49,7 +49,7 @@ subjects:
   namespace: jenkins
 EOF
 ```
-## Step 3: Create a PersistentVolumeClaim for Jenkins:
+## Step 3: Create a PersistentVolumeClaim with EBS storage for Jenkins:
 ```
 $ kubectl apply -f - <<EOF
 # jenkins-pvc.yaml
@@ -65,6 +65,45 @@ spec:
   resources:
     requests:
       storage: 20Gi
+EOF
+```
+## Optional step: Create a PersistentVolumeClaim with EFS storage for Jenkins:
+- #### Create StorageClass
+```
+kubectl apply -f - <<'EOF'
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: efs-sc
+provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: "fs-049fea1ba7b324e2c"
+  directoryPerms: "700"
+  gidRangeStart: "1000"
+  gidRangeEnd: "2000"
+  basePath: "/dynamic_provisioning"
+  subPathPattern: "${.PVC.namespace}/${.PVC.name}"
+  ensureUniqueDirectory: "true"
+  reuseAccessPoint: "false"
+EOF
+```
+- #### Create PersistentClaimVolume
+```
+kubectl apply -f - <<EOF
+# jenkins-pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jenkins-pvc
+  namespace: jenkins
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: efs-sc
+  resources:
+    requests:
+      storage: 5Gi
 EOF
 ```
 ### Step 4: Create Jenkins Deployment:
