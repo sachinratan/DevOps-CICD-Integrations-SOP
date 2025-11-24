@@ -112,6 +112,33 @@
   statefulset.apps/argocd-application-controller   1/1     2m26s
   ```
   - Make ArgoCD accessible over load balancer address for consistent public endpoint accessibility
+  ```
+  kubectl apply -f - <<EOF
+  apiVersion: networking.k8s.io/v1
+  kind: Ingress
+  metadata:
+    name: argocd-ingress
+    namespace: argocd
+    annotations:
+      kubernetes.io/ingress.class: alb
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/inbound-cidrs: 152.56.17.105/32, 152.56.14.187/32, 20.207.73.85/32, 20.207.73.82/32
+  spec:
+    rules:
+      - http:
+          paths:
+            - path: /
+              pathType: Prefix
+              backend:
+                service:
+                  name: argocd-server
+                  port:
+                    number: 80
+  EOF
+  Warning: annotation "kubernetes.io/ingress.class" is deprecated, please use 'spec.ingressClassName' instead
+  ingress.networking.k8s.io/argocd-ingress created
+  ```
     
 #### ArgoCD Configuration:
 #### Important Points OR Advantages over other CI tools:
