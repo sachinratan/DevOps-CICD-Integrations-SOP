@@ -159,7 +159,7 @@ spec:
         - argocd-server
         - --insecure  # Add this flag
 ```
-- ![Argo Getting Started Guide](https://argo-cd.readthedocs.io/en/stable/getting_started/)
+- [Argo Getting Started Guide](https://argo-cd.readthedocs.io/en/stable/getting_started/)
 #### Retrieve the ArgoCD login password for `admin` user:
 - Retrive the inital admin password
 ```
@@ -210,7 +210,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
   EOF
   application.argoproj.io/helm-app created
   ```
-- ![application.yaml reference manifest](https://github.com/argoproj/argocd-example-apps/blob/master/apps/templates/applications.yaml)
+- [Reference manifest - application.yaml](https://github.com/argoproj/argocd-example-apps/blob/master/apps/templates/applications.yaml)
 #### ArgoCD application and deployment should be visible in the ArgoCD UI:
 ![](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/miscellaneous-data/ArgoCD-UI.png)
 
