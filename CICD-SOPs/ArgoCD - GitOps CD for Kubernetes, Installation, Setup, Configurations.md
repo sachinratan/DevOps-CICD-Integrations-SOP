@@ -210,7 +210,9 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
   EOF
   application.argoproj.io/helm-app created
   ```
-  
+#### ArgoCD application and deployment should be visible in the ArgoCD UI:
+![](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/miscellaneous-data/ArgoCD-UI.png)
+
 #### Important Points OR Advantages over other CI tools:
 - ArgoCD solves the security concern by running inside Kubernetes cluster and pulling the manifest out of GitHub repository.
 - ArgoCD supports:
