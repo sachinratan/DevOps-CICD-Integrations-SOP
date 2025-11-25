@@ -167,7 +167,50 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 ```
 - Upon login in, update the admin password under ArgoCD dashboard User Info >> Update Password section >> Save New password
 
-#### ArgoCD Configuration:
+#### ArgoCD application Configuration:
+- Deploy the ArgoCD application to track and sync the Git repo changes:
+  ```
+  kubectl apply -f - <<EOF
+  apiVersion: argoproj.io/v1alpha1
+  kind: Application
+  metadata:
+    name: my-application
+    namespace: argocd
+    finalizers:
+      - resources-finalizer.argocd.argoproj.io
+  spec:
+    project: default
+
+    source:
+      repoURL: https://github.com/sachinratan/jnks-k8s-integration-repo.git
+      targetRevision: main
+      path: .  # Changed from 'helm-chart' to '.' for root directory
+    
+      helm:
+        valueFiles:
+          - values.yaml
+
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: default
+
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+        allowEmpty: false
+      syncOptions:
+        - CreateNamespace=true
+      retry:
+        limit: 5
+        backoff:
+          duration: 5s
+          factor: 2
+          maxDuration: 3m
+  EOF
+  application.argoproj.io/helm-app created
+  ```
+  
 #### Important Points OR Advantages over other CI tools:
 - ArgoCD solves the security concern by running inside Kubernetes cluster and pulling the manifest out of GitHub repository.
 - ArgoCD supports:
