@@ -114,3 +114,20 @@ gitlab-runner-64f48c794c-6dbsf   1/1     Running   0          10m
 ```
 - GitLab runner status in GitLab Project:
   ![](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/miscellaneous-data/register-runner-eks.png)
+
+##### References:
+- https://docs.gitlab.com/runner/install/kubernetes/ - GitLab Runner Helm chart
+- https://docs.gitlab.com/runner/executors/kubernetes/#configure-runner-api-permissions - Create a role with the required permissions
+- https://gitlab.com/gitlab-org/charts/gitlab-runner/blob/main/values.yaml - reference  `value.yaml`
+
+### Method 3:
+#### Alternative: Using CLI Parameters
+- If you prefer command-line parameters instead of a values file:
+  ```
+  helm install gitlab-runner gitlab/gitlab-runner \
+    --namespace gitlab-runner \
+    --create-namespace \
+    --set gitlabUrl="https://gitlab.com/" \
+    --set runnerToken="glrt-YOUR_TOKEN" \
+    --set rbac.create=true
+  ```
