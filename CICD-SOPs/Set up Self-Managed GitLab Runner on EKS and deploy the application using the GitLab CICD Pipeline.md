@@ -232,7 +232,7 @@ deploy-to-eks:
     - aws_eks_runner
 ```
 
-### Optional: To avoiding exposing the cloud credential to GitLab pipeline, leverage the IAM Role for ServiceAccount (IRSA)
+### Optional: Deploying GitLab runner with IAM Role for ServiceAccount (IRSA) configurations (To avoiding exposing the cloud credential to GitLab pipeline, leverage the IAM Role for ServiceAccount (IRSA) with GitLab runner)
 #### Step 1: Create IAM Policy for ECR Access:
 ```
 # Create ECR policy file
