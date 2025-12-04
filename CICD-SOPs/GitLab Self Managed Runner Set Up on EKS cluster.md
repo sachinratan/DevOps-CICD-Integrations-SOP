@@ -1,0 +1,4 @@
+## GitLab Self Managed Runner Set Up on EKS cluster
+
+##### Step 1: Follow the step of instruction from the [GitLab CICD Setup and Kubernetes Integration n Deployment
+](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/CICD-SOPs/GitLab%20CICD%20Setup%20and%20Kubernetes%20Integration%20n%20Deployment.md#gitlab-cicd-setup-and-kubernetes-integration-n-deployment) Method 2 [Deploying GitLab runner using custom values.yaml file](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/CICD-SOPs/GitLab%20CICD%20Setup%20and%20Kubernetes%20Integration%20n%20Deployment.md#deploying-gitlab-runner-using-custom-valuesyaml-file)
