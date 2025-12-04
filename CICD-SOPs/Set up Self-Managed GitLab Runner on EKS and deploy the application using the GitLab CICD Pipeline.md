@@ -57,7 +57,76 @@ helm upgrade gitlab-runner gitlab/gitlab-runner --namespace gitlab-runner -f val
 #### Step 3: Create the sample application.
 - You can use the sample GO app from - https://gitlab.com/slrs-admin/go-curd-app.git
 
-#### Step 4: Write the GitLab CICD pipeline `.gitlab-ci.yml` file.
+#### Step 4: Create the Dockerfile.
+```
+
+# Multi-stage build for Go CRUD application
+# Stage 1: Build stage
+FROM golang:1.21-alpine AS builder
+
+# Install git and ca-certificates (needed for fetching dependencies and HTTPS)
+RUN apk add --no-cache git ca-certificates tzdata
+
+# Set working directory
+WORKDIR /app
+
+# Copy go mod files first for better caching
+COPY go.mod ./
+
+# Generate the go.sum file
+RUN go mod tidy
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Evaluating the test cases
+RUN go test ./...
+
+# Build the application
+# CGO_ENABLED=0 for static binary
+# -ldflags="-w -s" to reduce binary size by stripping debug info
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/go-crud-app .
+
+# Stage 2: Production stage
+FROM alpine:latest
+
+# Install ca-certificates for HTTPS requests
+RUN apk --no-cache add ca-certificates
+
+# Create non-root user for security
+RUN addgroup -g 1000 appuser && \
+    adduser -D -u 1000 -G appuser appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy binary from builder stage
+COPY --from=builder /app/go-crud-app .
+
+# Copy timezone data if needed
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
+
+# Change ownership to non-root user
+RUN chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose application port (adjust based on your app)
+EXPOSE 8080
+
+# Health check (adjust endpoint based on your app)
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
+
+# Run the application
+CMD ["./go-crud-app"]
+```
+
+#### Step 5: Write the GitLab CICD pipeline `.gitlab-ci.yml` file.
 ```
 # This file is a template, and might need editing before it works on your project.
 # This is a sample GitLab CI/CD configuration file that should run without any modifications.
@@ -233,8 +302,9 @@ deploy-to-eks:
   tags:
     - aws_eks_runner
 ```
+#### Step 6: Upon code changes the GitLab CICD pipeline will auto trigger and deploy the changes to EKS cluster application.
 
-### Optional: Deploying GitLab runner with IAM Role for ServiceAccount (IRSA) configurations (To avoiding exposing the cloud credential to GitLab pipeline, leverage the IAM Role for ServiceAccount (IRSA) with GitLab runner)
+### Deploying GitLab runner with IAM Role for ServiceAccount (IRSA) configurations (To avoiding exposing the cloud credential to GitLab pipeline, leverage the IAM Role for ServiceAccount (IRSA) with GitLab runner)
 #### Step 1: Create IAM Policy for ECR Access:
 ```
 # Create ECR policy file
