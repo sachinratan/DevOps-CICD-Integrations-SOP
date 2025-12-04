@@ -4,7 +4,7 @@
 - #### Follow the step of instruction from the [GitLab CICD Setup and Kubernetes Integration n Deployment](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/CICD-SOPs/GitLab%20CICD%20Setup%20and%20Kubernetes%20Integration%20n%20Deployment.md#gitlab-cicd-setup-and-kubernetes-integration-n-deployment) Method 2 - [Deploying GitLab runner using custom values.yaml file](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/CICD-SOPs/GitLab%20CICD%20Setup%20and%20Kubernetes%20Integration%20n%20Deployment.md#deploying-gitlab-runner-using-custom-valuesyaml-file)
 - #### Follow the optional step from [Deploying GitLab runner with IAM Role for ServiceAccount (IRSA) configurations (To avoiding exposing the cloud credential to GitLab pipeline, leverage the IAM Role for ServiceAccount (IRSA) with GitLab runner)](https://github.com/sachinratan/DevOps-CICD-Integrations-SOP/blob/main/CICD-SOPs/Set%20up%20Self-Managed%20GitLab%20Runner%20on%20EKS%20and%20deploy%20the%20application%20using%20the%20GitLab%20CICD%20Pipeline.md#optional-to-avoiding-exposing-the-cloud-credential-to-gitlab-pipeline-leverage-the-iam-role-for-serviceaccount-irsa)
 
-#### Step 1: Update the `value.yaml` similar to following configuration.
+#### Step 1: Update the `values.yaml` similar to following configuration.
 ```
 cat values.yaml
 ## GitLab Runner Configuration
